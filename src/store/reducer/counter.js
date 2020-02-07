@@ -1,6 +1,5 @@
 const intialState = {
     counter: 0,
-    report: []
 }
 
 
@@ -28,11 +27,6 @@ const reducer = (state = intialState,action) => {
             return {
                 ...state,
                 counter: state.counter - action.value
-            }
-        case 'SAVE_REPORT':
-            return {
-                ...state,
-                report: state.report.concat(state.counter)
             }
         default:
             return state;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
+import * as actionType from '../../store/actions';
 
 class Counter extends Component {
     state = {
@@ -36,11 +37,11 @@ class Counter extends Component {
                 <CounterControl label="Add 5" clicked={this.props.OnAddCounter}  />
                 <CounterControl label="Subtract 5" clicked={this.props.onSubtractCounter}  />
                 <hr/>
-                <button onClick={this.props.onSaveReport}>Save Report</button>
+                <button onClick={() => this.props.onSaveReport(this.props.ctr)}>Save Report</button>
                 <ul>
                 </ul>
             { this.props.str.map(el => {
-                return <li>{el}</li>
+                return <li key={el.id} onClick={()=>this.props.onDeleteReport(el.id)}>{el.value}</li>
             })
             }
                 </div>
@@ -51,29 +52,34 @@ class Counter extends Component {
 
 const mapStatetoProps = state => {
     return {
-        ctr: state.counter,
-        str: state.report
+        ctr: state.ctr.counter,
+        str: state.rst.report
     };
 };
 
 const mapDispatchToProps = dispatch =>{
 return {
     onIncrementCounter: () => dispatch({
-        type: 'INCREMENT'
+        type: actionType.INCREMENT
     }),
     onDecrementCounter: ()=> dispatch ({
-        type: 'DECREMENT'  
+        type: actionType.DECREMENT  
     }),
     OnAddCounter: () => dispatch ({
-        type: 'ADD',
+        type: actionType.ADD,
         value: 5
     }),
     onSubtractCounter: ()=> dispatch ({
-        type: 'SUBSTRACT',
+        type: actionType.SUBSTRACT,
         value: 5
     }),
-    onSaveReport: ()=> dispatch({
-        type: 'SAVE_REPORT'
+    onSaveReport: (res)=> dispatch({
+        type: actionType.SAVE_REPORT,
+        result: res
+    }),
+    onDeleteReport : (id)=> dispatch ({
+        type: actionType.DELETE_REPORT,
+        reid: id
     })
  };
 };
