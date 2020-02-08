@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
-import * as actionType from '../../store/actions';
+import * as actionCrators from '../../store/action/index';
 
 class Counter extends Component {
     state = {
@@ -59,28 +59,12 @@ const mapStatetoProps = state => {
 
 const mapDispatchToProps = dispatch =>{
 return {
-    onIncrementCounter: () => dispatch({
-        type: actionType.INCREMENT
-    }),
-    onDecrementCounter: ()=> dispatch ({
-        type: actionType.DECREMENT  
-    }),
-    OnAddCounter: () => dispatch ({
-        type: actionType.ADD,
-        value: 5
-    }),
-    onSubtractCounter: ()=> dispatch ({
-        type: actionType.SUBSTRACT,
-        value: 5
-    }),
-    onSaveReport: (res)=> dispatch({
-        type: actionType.SAVE_REPORT,
-        result: res
-    }),
-    onDeleteReport : (id)=> dispatch ({
-        type: actionType.DELETE_REPORT,
-        reid: id
-    })
+    onIncrementCounter: () => dispatch(actionCrators.increment()),
+    onDecrementCounter: ()=> dispatch (actionCrators.decrement()),
+    OnAddCounter: () => dispatch (actionCrators.add(5)),
+    onSubtractCounter: ()=> dispatch (actionCrators.substract(5)),
+    onSaveReport: (res)=> dispatch(actionCrators.saveReport(res)),
+    onDeleteReport : (id)=> dispatch (actionCrators.deleteReport(id))
  };
 };
 
